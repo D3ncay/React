@@ -1,20 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 
-const MySelect = ({ options, defaultValue, onChange }) => {
-
-    const [selected, setSelected] = useState('');
-
+const MySelect = ({ options, defaultValue, onChange, value }) => {
   return (
     <div>
-      <select onChange={e => setSelected(e.target.value)}>
-        <option selected value="" disabled>
+      <select  value={value} onChange={(e) => onChange(e.target.value)}>
+        <option value="" disabled>
           {defaultValue}
         </option>
-        {options.map((option) => 
-          <option  value={option.value} key={option.value}>
+        {options.map((option) => (
+          <option value={option.value} key={option.value}>
             {option.name}
           </option>
-        )}
+        ))}
       </select>
     </div>
   );
