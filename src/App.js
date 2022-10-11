@@ -2,9 +2,9 @@ import "./styles/App.css";
 import React, { useMemo, useState } from "react";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
-import MySelect from "./components/UI/select/MySelect";
-import MyInput from "./components/UI/input/MyInput";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/button/MyModal/MyModal";
+import MyButton from "./components/UI/button/MyButton";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -15,9 +15,9 @@ function App() {
     { id: 5, title: "JS0", body: "JS - язык программирования88" },
   ]);
 
-  
+  const [filter, setFilter] = useState({ sort: "", query: "" });
 
-  const [filter, setFilter] = useState({sort: '', query: ''});
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const sortedPosts = useMemo(() => {
     if (filter.sort) {
@@ -44,17 +44,20 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
-      <PostFilter filter={filter} setFilter={setFilter}/>
-      {sortedAndSearchedPosts.length ? (
-        <PostList
-          remove={removePost}
-          posts={sortedAndSearchedPosts}
-          title="Список постов"
-        />
-      ) : (
-        <h1>Постов нет!</h1>
+      <MyButton onClick={() => setIsModalActive(true)}>
+        Создать пост
+      </MyButton>
+      {isModalActive && (
+        <MyModal closeModal={() => setIsModalActive(false)}>
+          <PostForm create={createPost} closeModal={()=>setIsModalActive(false)}/>
+        </MyModal>
       )}
+      <PostFilter filter={filter} setFilter={setFilter} />
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Список постов"
+      />
     </div>
   );
 }
