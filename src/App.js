@@ -8,13 +8,7 @@ import MyButton from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: "JS1", body: "JS - язык программирования2" },
-    { id: 2, title: "JS6", body: "JS - язык программирования1" },
-    { id: 3, title: "JS121", body: "JS - язык программирования3" },
-    { id: 4, title: "JS11", body: "JS - язык программирования5" },
-    { id: 5, title: "JS0", body: "JS - язык программирования88" },
-  ]);
+  const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({ sort: "", query: "" });
 
