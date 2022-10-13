@@ -30,7 +30,7 @@ function App() {
 
   const sortedAndSearchedPosts = usePosts(filter.sort, filter.query, posts);
 
-  const [fetchPosts, postsError, isPostsLoading] = useFetching(async () => {
+  const [fetchPosts, postsError, isPostsLoading] = useFetching(async (limit,page) => {
     const response = await PostService.getAll(limit, page);
     setPosts(response.data);
     const totalCount = response.headers["x-total-count"];
@@ -46,8 +46,13 @@ function App() {
   };
 
   useEffect(() => {
-    fetchPosts();
-  }, [page]);
+    fetchPosts(limit,page);
+  }, []);
+
+  const changePage = (page) => {
+    setPage(page);
+    fetchPosts(limit,page);
+  }
 
   return (
     <div className="App">
@@ -72,7 +77,7 @@ function App() {
           />
           <div className="pages">
             {pagesArray.map((p) => (
-              <MyPage onClick={() => setPage(p)} key={p} page={p} currentPage={page} />
+              <MyPage onClick={() => changePage(p)} key={p} page={p} currentPage={page} />
             ))}
           </div>
         </>
