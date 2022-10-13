@@ -1,6 +1,5 @@
 import "./styles/App.css";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
@@ -11,7 +10,7 @@ import PostService from "./API/PostService";
 import { useFetching } from "./hooks/useFetching";
 import { getPagesCount } from "./utils/pages";
 import { usePagination } from "./hooks/usePagination";
-import MyPage from "./components/UI/page/MyPage";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -75,11 +74,7 @@ function App() {
             posts={sortedAndSearchedPosts}
             title="Список постов"
           />
-          <div className="pages">
-            {pagesArray.map((p) => (
-              <MyPage onClick={() => changePage(p)} key={p} page={p} currentPage={page} />
-            ))}
-          </div>
+          <Pagination pagesArray={pagesArray} changePage={changePage} currentPage={page} />
         </>
       )}
     </div>
