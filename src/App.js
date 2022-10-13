@@ -9,6 +9,9 @@ import MyButton from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 import PostService from "./API/PostService";
 import { useFetching } from "./hooks/useFetching";
+import { getPagesCount } from "./utils/pages";
+import { usePagination } from "./hooks/usePagination";
+import MyPage from "./components/UI/page/MyPage";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -17,13 +20,22 @@ function App() {
 
   const [isModalActive, setIsModalActive] = useState(false);
 
+  const [totalPages, setTotalPages] = useState(0);
+
+  const [limit, setLimit] = useState(10);
+
+  const [page, setPage] = useState(1);
+
+  const pagesArray = usePagination(totalPages);
+
   const sortedAndSearchedPosts = usePosts(filter.sort, filter.query, posts);
 
-  const [fetchPosts,postsError, isPostsLoading ] = useFetching(async () => {
-    const posts = await PostService.getAll();
-    setPosts(posts);
+  const [fetchPosts, postsError, isPostsLoading] = useFetching(async () => {
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data);
+    const totalCount = response.headers["x-total-count"];
+    setTotalPages(getPagesCount(totalCount, limit));
   });
-
 
   const createPost = (post) => {
     setPosts([...posts, post]);
@@ -35,7 +47,7 @@ function App() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   return (
     <div className="App">
@@ -52,11 +64,18 @@ function App() {
       {isPostsLoading ? (
         <h1> Загрузка...</h1>
       ) : (
-        <PostList
-          remove={removePost}
-          posts={sortedAndSearchedPosts}
-          title="Список постов"
-        />
+        <>
+          <PostList
+            remove={removePost}
+            posts={sortedAndSearchedPosts}
+            title="Список постов"
+          />
+          <div className="pages">
+            {pagesArray.map((p) => (
+              <MyPage onClick={() => setPage(p)} key={p} page={p} currentPage={page} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
