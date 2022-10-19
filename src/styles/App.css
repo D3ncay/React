@@ -4,13 +4,18 @@
     box-sizing: border-box;
 }
 
+li{
+    list-style: none;
+}
+
 #root{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.App{
+
+.wrapper{
     width: 800px;
 }
 
@@ -111,3 +116,88 @@ input, select{
     color: rgba(0, 0, 0, 0.3);
 }
 
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar{
+    width: 100%;
+    padding: 15px;
+     border: 2px solid teal;
+    margin-top: 10px;
+}
+.navbar ul{
+    display: flex;
+}
+
+.navbar a{
+    list-style: none;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: teal;
+    padding: 5px 10px;
+    text-decoration: none;
+      border: 2px solid teal;
+}
+.navbar a:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.navbar a.active{
+    background-color: teal;
+    color: white;
+}
+
+.error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.error p{
+    font-size: 48px;
+    margin-bottom: 8px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.post-container{
+    margin-top: 24px;
+}
+
+.post-title{
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.post-body{
+    font-size: 16px;
+}
+
+.comments-title{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: auto;
+
+}
+
+.comment{
+    padding: 5px 10px;
+    border: 1px solid teal;
+    margin-bottom: 16px;
+}
+
+.comment-user{
+    color: blue;
+    margin-bottom: 8px;
+}
+.comment-body{
+    color: black;
+}
