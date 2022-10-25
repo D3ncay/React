@@ -127,11 +127,11 @@ input, select{
      border: 2px solid teal;
     margin-top: 10px;
 }
-.navbar ul{
+.navbar ul, .navbar li{
     display: flex;
 }
 
-.navbar a{
+.navbar a, .navbar button{
     list-style: none;
     margin-right: 10px;
     font-weight: bold;
@@ -139,11 +139,17 @@ input, select{
     color: teal;
     padding: 5px 10px;
     text-decoration: none;
-      border: 2px solid teal;
+    border: 2px solid teal;
 }
-.navbar a:hover{
+.navbar button{
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: unset;
+}
+.navbar a:hover, .navbar button:hover{
     opacity: 0.8;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .navbar a.active{
@@ -200,4 +206,10 @@ input, select{
 }
 .comment-body{
     color: black;
+}
+
+.post__btns{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
 }
